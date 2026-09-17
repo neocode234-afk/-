@@ -1,0 +1,3 @@
+import type { Metadata } from "next"; import "./globals.css"; import { Navbar } from "@/components/Navbar"; import { Footer } from "@/components/Footer";
+export const metadata: Metadata={metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL||"http://localhost:3000"),title:{default:"AliPrompt — پرامپت‌های خلاقانه",template:"%s | AliPrompt"},description:"کتابخانه‌ای منتخب از پرامپت‌های حرفه‌ای هوش مصنوعی.",openGraph:{siteName:"AliPrompt",images:["/images/brand/aliprompt-logo.png"]}};
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="fa" dir="rtl" suppressHydrationWarning><body className="grain min-h-screen font-sans antialiased transition-colors"><Navbar/><main>{children}</main><Footer/></body></html>}

@@ -1,0 +1,1 @@
+import {redirect} from "next/navigation";import {getSession} from "@/lib/auth";import {AdminLogin} from "@/components/admin/AdminLogin";export default async function Page(){if(await getSession())redirect("/admin");return <AdminLogin/>}
