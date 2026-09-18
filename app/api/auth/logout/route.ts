@@ -1,1 +1,1 @@
-export {POST} from "@/app/api/admin/logout/route";
+export { POST } from "@/backend/modules/auth/logout.controller";

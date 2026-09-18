@@ -1,0 +1,2 @@
+import {NextResponse} from "next/server";import {getSession} from "@/backend/modules/auth/session";import {savePromptImage} from "./service";import {errorResponse} from "@/backend/shared/errors";
+export async function POST(req:Request){try{if(!await getSession())return NextResponse.json({error:"Unauthorized"},{status:401});const file=(await req.formData()).get("file");if(!(file instanceof File))return NextResponse.json({error:"تصویر انتخاب نشده"},{status:400});return NextResponse.json({url:await savePromptImage(file)})}catch(error){return errorResponse(error)}}

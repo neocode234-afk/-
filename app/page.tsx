@@ -1,3 +1,50 @@
-import Link from "next/link";import {ArrowDownLeft,Sparkles} from "lucide-react";import {PromptExplorer} from "@/components/PromptExplorer";import {getPrompts} from "@/lib/queries";
-export const revalidate=0;
-export default async function Home(){const prompts=await getPrompts();return <><section className="mx-auto max-w-7xl px-5 pb-12 pt-16 lg:px-8 lg:pt-24"><div className="grid items-end gap-10 lg:grid-cols-[1fr_.42fr]"><div><div className="mb-7 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-bold dark:border-white/10 dark:bg-white/5"><Sparkles size={14} className="text-violet"/> کتابخانه‌ای برای ذهن‌های خلاق</div><h1 className="max-w-5xl text-[clamp(3.6rem,9vw,8.5rem)] font-black leading-[.84] tracking-[-.075em]">ایده را بنویس.<br/><span className="text-violet">جادو</span> را بساز.</h1></div><div className="pb-3"><p className="mb-7 text-base leading-8 text-black/60 dark:text-white/60">پرامپت‌های حرفه‌ای و دست‌چین‌شده برای خلق تصاویر متفاوت. پیدا کن، کپی کن و با نگاه خودت دوباره بساز.</p><Link href="#prompts" className="inline-flex items-center gap-3 rounded-full bg-acid px-6 py-3.5 text-sm font-black text-ink transition hover:gap-5">کشف پرامپت‌ها <ArrowDownLeft size={18}/></Link></div></div><div className="mt-16 overflow-hidden border-y border-black/10 py-4 dark:border-white/10"><div className="marquee flex w-max gap-8 text-sm font-bold text-black/50 dark:text-white/50">{Array(2).fill(["PORTRAIT","CINEMATIC","FASHION","FANTASY","PRODUCT","RETRO"]).flat().map((x,i)=><span key={i} className="flex items-center gap-8">{x}<b className="text-violet">✦</b></span>)}</div></div></section><PromptExplorer prompts={prompts}/></>}
+import Link from "next/link";
+import type { Metadata } from "next";
+import { ArrowDownLeft, Sparkles } from "lucide-react";
+import { PosterGallery } from "@/components/PosterGallery";
+import { PromptExplorer } from "@/components/PromptExplorer";
+import { getPrompts } from "@/lib/queries";
+
+export const revalidate = 0;
+export const metadata: Metadata = {
+  title: "AliPrompt — پرامپت‌های خلاقانه",
+  description: "کتابخانه‌ای منتخب از پرامپت‌های حرفه‌ای هوش مصنوعی برای خلق تصاویر متفاوت.",
+};
+
+export default async function Home() {
+  const prompts = await getPrompts();
+  const previews = prompts.map(({ prompt_text, status, created_at, updated_at, ...preview }) => preview);
+
+  return (
+    <>
+      <section className="mx-auto max-w-7xl px-5 pb-12 pt-16 lg:px-8 lg:pt-24">
+        <div className="grid items-end gap-10 lg:grid-cols-[1fr_.42fr]">
+          <div>
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-bold dark:border-white/10 dark:bg-white/5">
+              <Sparkles aria-hidden="true" size={14} className="text-violet" /> کتابخانه‌ای برای ذهن‌های خلاق
+            </div>
+            <h1 className="max-w-5xl text-[clamp(3.6rem,9vw,8.5rem)] font-black leading-[.84] tracking-[-.075em]">
+              ایده را بنویس.<br />
+              <span className="text-violet">جادو</span> را بساز.
+            </h1>
+          </div>
+          <div className="pb-3">
+            <p className="mb-7 text-base leading-8 text-black/70 dark:text-white/70">پرامپت‌های حرفه‌ای و دست‌چین‌شده برای خلق تصاویر متفاوت. پیدا کن، کپی کن و با نگاه خودت دوباره بساز.</p>
+            <Link href="#prompts" className="inline-flex items-center gap-3 rounded-full bg-acid px-6 py-3.5 text-sm font-black text-ink transition hover:gap-5">
+              کشف پرامپت‌ها <ArrowDownLeft aria-hidden="true" size={18} />
+            </Link>
+          </div>
+        </div>
+        <div className="mt-16 overflow-hidden border-y border-black/10 py-4 dark:border-white/10">
+          <div className="marquee flex w-max gap-8 text-sm font-bold text-black/60 dark:text-white/60">
+            {Array(2).fill(["PORTRAIT", "CINEMATIC", "FASHION", "FANTASY", "PRODUCT", "RETRO"]).flat().map((item, index) => (
+              <span key={index} className="flex items-center gap-8">{item}<b className="text-violet">✦</b></span>
+            ))}
+          </div>
+        </div>
+      </section>
+      <PromptExplorer prompts={previews} />
+      <PosterGallery />
+    </>
+  );
+}

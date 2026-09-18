@@ -4,3 +4,4 @@ export type Prompt = {
   status: "published" | "draft"; created_at: string; updated_at: string;
 };
 export type PromptInput = Omit<Prompt, "id" | "created_at" | "updated_at">;
+export type PromptPreview = Omit<Prompt, "prompt_text" | "status" | "created_at" | "updated_at">;

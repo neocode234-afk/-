@@ -1,3 +1,62 @@
-@tailwind base; @tailwind components; @tailwind utilities;
-@layer components{.input{@apply w-full rounded-xl border border-black/10 bg-white px-4 outline-none transition focus:border-violet dark:border-white/15 dark:bg-white/5;min-height:3rem}}
-:root{color-scheme:light} .dark{color-scheme:dark} *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:#f4f1ea;color:#171717} .dark body{background:#11110f;color:#f5f2ea}.grain{background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}.marquee{animation:marquee 22s linear infinite}@keyframes marquee{to{transform:translateX(-50%)}}@keyframes toast{0%{opacity:0;transform:translate(-50%,12px)}15%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-6px)}}.toast{animation:toast 2.2s ease both}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face { font-family: "Vazirmatn"; src: url("/fonts/Vazirmatn-variable.woff2") format("woff2 supports variations"), url("/fonts/Vazirmatn-variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+:root {
+  color-scheme: light;
+  --page: #f4f1ea;
+  --ink: #171717;
+  --surface: rgba(255, 255, 255, .88);
+  --line: rgba(23, 23, 23, .1);
+  --muted: rgba(23, 23, 23, .65);
+  --brand: #7656e8;
+  --accent: #d8ff63;
+  --radius-control: 999px;
+  --radius-card: 1.75rem;
+  --shadow-float: 0 18px 50px rgba(20, 18, 15, .08);
+}
+
+.dark {
+  color-scheme: dark;
+  --page: #11110f;
+  --ink: #f5f2ea;
+  --surface: rgba(255, 255, 255, .05);
+  --line: rgba(255, 255, 255, .12);
+  --muted: rgba(255, 255, 255, .7);
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--page); color: var(--ink); font-family: "Vazirmatn", Tahoma, Arial, sans-serif; }
+  ::selection { background: var(--accent); color: #171717; }
+  :focus-visible { outline: 3px solid color-mix(in srgb, var(--brand) 65%, transparent); outline-offset: 3px; }
+}
+
+@layer components {
+  .surface { @apply border border-black/10 bg-white dark:border-white/10 dark:bg-white/5; box-shadow: var(--shadow-float); }
+  .surface-card { @apply surface overflow-hidden rounded-[1.75rem] p-2 transition duration-300 hover:-translate-y-1.5 hover:shadow-card; }
+  .surface-nav { @apply border-b border-black/5 bg-paper/80 backdrop-blur-xl dark:border-white/10 dark:bg-[#11110f]/80; }
+  .control { @apply h-12 w-full rounded-full border border-black/15 bg-white px-4 text-sm outline-none transition placeholder:text-black/45 focus:border-violet focus:ring-4 focus:ring-violet/10 dark:border-white/15 dark:bg-white/5 dark:placeholder:text-white/45; }
+  .input { @apply control rounded-xl; min-height: 3rem; }
+  .button { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition duration-200 disabled:pointer-events-none disabled:opacity-60; }
+  .button-primary { @apply button bg-ink text-white hover:-translate-y-0.5 hover:shadow-lg dark:bg-white dark:text-ink; }
+  .button-accent { @apply button bg-acid text-ink hover:-translate-y-0.5 hover:shadow-lg; }
+  .button-ghost { @apply button border border-black/10 bg-white/70 hover:bg-black/5 dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10; }
+  .icon-button { @apply grid size-10 place-items-center rounded-full border border-black/10 bg-white/70 transition hover:bg-black/5 dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10; }
+  .chip { @apply shrink-0 rounded-full border border-black/15 bg-white px-4 py-2 text-xs font-bold transition hover:border-violet dark:border-white/15 dark:bg-white/5; }
+  .chip-active { @apply bg-violet text-white shadow-[0_8px_20px_rgba(118,86,232,.25)]; }
+  .tag { @apply rounded-full bg-black/5 px-2.5 py-1 text-[10px] dark:bg-white/10; }
+  .eyebrow { @apply block text-xs font-bold uppercase tracking-[.22em] text-violet; }
+}
+
+.grain { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E"); }
+.marquee { animation: marquee 22s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes toast { 0% { opacity: 0; transform: translate(-50%, 12px); } 15%, 85% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -6px); } }
+.toast { animation: toast 2.2s ease both; }
+
+@media (max-width: 640px) { .grain { background-image: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .marquee, .toast { animation: none; } }

@@ -7,7 +7,7 @@ export function AccessPanel(){
  const [name,setName]=useState("");const [phone,setPhone]=useState("");const [secret,setSecret]=useState("");const [msg,setMsg]=useState("");const [busy,setBusy]=useState(false);
  async function submit(e:React.FormEvent){e.preventDefault();setBusy(true);setMsg("");
  try{const res=await fetch(mode==="login"?"/api/auth/access":"/api/auth/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(mode==="login"?{phone,code:secret}:{name,phone,password:secret})});
- const data=await res.json();if(!res.ok)throw new Error(data.error||"خطا در درخواست");router.replace(data.admin?"/admin":"/account");router.refresh();
+ const data=await res.json();if(!res.ok)throw new Error(data.error||"خطا در درخواست");if(mode==="register"){setMsg("ثبت‌نام با موفقیت انجام شد ✓");setSecret("");return}router.replace(data.admin?"/admin":"/");router.refresh();
  }catch(e){setMsg(e instanceof Error?e.message:"اتصال برقرار نشد؛ دوباره تلاش کنید.");}finally{setBusy(false);}}
  return <div className="mx-auto grid min-h-[70vh] max-w-md place-items-center px-5 py-10"><div className="w-full rounded-[2rem] border border-black/10 bg-white p-8 shadow-card dark:border-white/10 dark:bg-white/5">
  <div className="mb-7 flex rounded-full bg-black/5 p-1 dark:bg-white/10">{(["login","register"] as const).map(tab=><button key={tab} onClick={()=>{setMode(tab);setMsg("");setSecret("");}} className={`flex-1 rounded-full py-2.5 text-sm font-bold ${mode===tab?"bg-white shadow dark:bg-white/15":""}`}>{tab==="login"?"ورود":"ثبت‌نام"}</button>)}</div>

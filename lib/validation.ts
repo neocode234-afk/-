@@ -1,2 +1,1 @@
-import {z} from "zod";
-export const promptSchema=z.object({title:z.string().trim().min(2).max(160),slug:z.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(180),description:z.string().trim().min(2).max(1000),prompt_text:z.string().trim().min(2).max(30000),category:z.string().trim().min(2).max(80),tags:z.array(z.string().trim().min(1).max(50)).max(20),image_url:z.string().trim().min(1).max(500),status:z.enum(["published","draft"]) });
+export { promptSchema } from "@/backend/modules/prompts/schema";
