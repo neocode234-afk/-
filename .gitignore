@@ -7,3 +7,5 @@ node_modules/
 .env.production
 public/uploads/
 npm-debug.log*
+
+.vercel

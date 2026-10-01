@@ -19,5 +19,5 @@ export function ThemeToggle() {
     localStorage.theme = enabled ? "dark" : "light";
   }
 
-  return <button type="button" aria-label="تغییر پوسته" onClick={toggle} className="icon-button hover:rotate-12">{dark ? <Sun aria-hidden="true" size={17} /> : <Moon aria-hidden="true" size={17} />}</button>;
+  return <button type="button" aria-label="تغییر پوسته" onClick={toggle} className="icon-button size-9 hover:rotate-12 sm:size-10">{dark ? <Sun aria-hidden="true" size={17} /> : <Moon aria-hidden="true" size={17} />}</button>;
 }

@@ -22,6 +22,12 @@ test("the registration UI no longer redirects users to a missing account page", 
   assert.doesNotMatch(accessPanel, /router\.replace\(data\.admin\?"\/admin":"\/account"\)/);
 });
 
+test("registration accepts Persian names without corrupted character ranges", () => {
+  const schema = read("backend/modules/users/schema.ts");
+  assert.match(schema, /\[آ-ی‌\\s\]/);
+  assert.doesNotMatch(schema, /Ø¢-ÛŒ/);
+});
+
 test("prompt mutations verify affected database rows", () => {
   const repository = read("backend/modules/prompts/repository.ts");
   assert.match(repository, /affectedRows === 1/);

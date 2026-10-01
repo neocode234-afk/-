@@ -5,7 +5,8 @@
     "start": "next start",
     "lint": "tsc --noEmit",
     "test": "node --test tests/database-contract.test.mjs",
-    "create-admin": "node scripts/create-admin.mjs"
+    "create-admin": "node scripts/create-admin.mjs",
+    "seed-prompts": "node scripts/seed-prompts.mjs"
   },
   "dependencies": {
     "@types/node": "^22.0.0",
